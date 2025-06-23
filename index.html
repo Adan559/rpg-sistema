@@ -10,17 +10,17 @@
     <style>
         /* Variáveis CSS para cores e propriedades globais */
         :root {
-            --primary-color: #2e1a47; /* Roxo escuro */
-            --secondary-color: #1a1a2e; /* Azul/Roxo muito escuro */
-            --accent-color: #8a4fff; /* Roxo claro vibrante */
-            --danger-color: #ff6b6b; /* Vermelho */
+            --primary-color: #412d8d; /* Roxo escuro */
+            --secondary-color: #000000; /* Azul/Roxo muito escuro */
+            --accent-color: #a477ff; /* Roxo claro vibrante */
+            --danger-color: #fa5353; /* Vermelho */
             --success-color: #4CAF50; /* Verde */
-            --info-color: #2196F3; /* Azul */
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --text-muted: #a0aec0; /* Cinza claro para texto secundário */
-            --bg-dark: #0f0f1a; /* Fundo mais escuro */
-            --bg-light: #f7fafc; /* Fundo claro */
+            --info-color: #3fa7fc; /* Azul */
+            --text-light: #7a8092;
+            --text-dark: #575757;
+            --text-muted: #818283; /* Cinza claro para texto secundário */
+            --bg-dark: #030303; /* Fundo mais escuro */
+            --bg-light: #000000; /* Fundo claro */
             --border-radius: 0.5rem; /* 8px */
             --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             --transition: all 0.3s ease-in-out;
@@ -1092,8 +1092,8 @@
     <header class="main-header">
         <div class="container">
             <a href="#home" class="logo">
-                <img src="imagens/logo-small.png" alt="Magic System Logo">
-                <h1 class="text-white text-2xl font-bold font-cinzel">Sistema de Magia RPG</h1>
+                <img src="logo-small.png" alt="Magic System Logo">
+                <h1 class="text-white text-2xl font-bold font-cinzel">Sistema de Magia Rpg</h1>
             </a>
             <nav class="main-nav">
                 <button class="menu-toggle" aria-label="Toggle navigation">
@@ -1119,15 +1119,15 @@
                     <p class="hero-description">Domine a arte da magia com a versão atualizada do Sistema de Magia RPG do Adm. Crie, personalize e integre feitiços como nunca antes. Prepare-se para uma experiência inesquecível em suas aventuras! </p>
                     <div class="hero-buttons">
                         <a href="#magic-creation" class="btn btn-primary">
-                            <i class="fas fa-hat-wizard"></i> Criar Sua Primeira Magia
+                            <i class="fas fa-hat-wizard"></i> Crie Sua Primeira Magia
                         </a>
                         <a href="#system" class="btn btn-secondary">
-                            <i class="fas fa-book-open"></i> Explorar o Sistema
+                            <i class="fas fa-book-open"></i> Explore o Sistema
                         </a>
                     </div>
                 </div>
                 <div class="hero-image hidden md:block">
-                    <img src="imagens/logo.png" alt="Magic Orb" class="w-full">
+                    <img src="logo.png" alt="Magic Orb" class="w-full">
                 </div>
                 <div class="scroll-indicator">
 <span>Role para baixo</span>
@@ -1160,8 +1160,8 @@
                     <div id="pa-system-content" class="tab-content active" role="tabpanel" aria-labelledby="tab-pa-system">
                         <div class="pa-system">
                             <div class="pa-info">
-                                <h3 class="text-2xl font-cinzel text-primary-color mb-4">Sistema de Pontos de Ação (PA)</h3>
-                                <p class="text-gray-700 mb-4">O sistema de Pontos de Ação (PA) gerencia o custo e a frequência de suas magias. Cada magia consome uma certa quantidade de PA.</p>
+                                <h3 style="color: whitesmoke;"class="text-2xl font-cinzel text-primary-color mb-4">Sistema de Pontos de Ação (PA)</h3>
+                                <p style="color: whitesmoke;" class="text-gray-700 mb-4">O sistema de Pontos de Ação (PA) gerencia o custo e a frequência de suas magias. Cada magia consome uma certa quantidade de PA.</p>
                                 <ul class="pa-rules">
                                     <li><i class="fas fa-dot-circle"></i> Comece com 3 PA no início de cada combate.</li>
                                     <li><i class="fas fa-dot-circle"></i> Ganhe 1 PA por turno.</li>
@@ -1612,6 +1612,7 @@
                                     <option value="Transmutação">Transmutação</option>
                                     <option value="Adivinhação">Adivinhação</option>
                                     <option value="Convocação">Convocação</option>
+                                    <option value="Elemental">Convocação</option>
                                 </select>
                             </div>
 
@@ -3165,3 +3166,4 @@
     </script>
 </body>
 </html>
+
