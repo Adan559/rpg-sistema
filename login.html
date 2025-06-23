@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso e Registro - Sistema de Magia RPG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Variáveis CSS do seu site */
+        :root {
+            --primary-color: #412d8d; /* Roxo escuro */
+            --secondary-color: #000000; /* Azul/Roxo muito escuro */
+            --accent-color: #a477ff; /* Roxo claro vibrante */
+            --danger-color: #fa5353; /* Vermelho */
+            --success-color: #4CAF50; /* Verde */
+            --info-color: #3fa7fc; /* Azul */
+            --text-light: #e0e0e0;
+            --text-dark: #575757;
+            --text-muted: #818283;
+            --bg-dark: #030303;
+            --bg-light: #000000;
+            --border-radius: 0.5rem;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease-in-out;
+
+            --primary-rgb: 46, 26, 71;
+            --accent-rgb: 138, 79, 255;
+            --danger-rgb: 255, 107, 107;
+            --success-rgb: 76, 175, 80;
+            --info-rgb: 33, 150, 243;
+        }
+
+        /* Estilos globais e de fontes do seu site */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            background-image: url('https://placehold.co/1920x1080/0f0f1a/0f0f1a?text=Fundo+Login+RPG'); /* Substitua! */
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Estilos para o container principal */
+        .auth-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-logo img {
+            height: 80px;
+        }
+
+        .auth-title {
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Tabs para Login/Registro */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            outline: none; /* Remover outline no foco */
+        }
+
+        .tab-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        /* Conteúdo das Tabs */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Groups e Inputs */
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.3);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Botões */
+        .auth-button {
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auth-button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--accent-rgb), 0.3);
+        }
+
+        .auth-button.secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .auth-button.secondary:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Mensagens */
+        .message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .message.error {
+            background-color: rgba(var(--danger-rgb), 0.15);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .message.success {
+            background-color: rgba(var(--success-rgb), 0.15);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .message.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Links no Footer */
+        .auth-footer {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .auth-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-logo">
+            <img src="https://placehold.co/100x100/A477FF/ffffff?text=Logo" alt="Logo do Sistema"> </div>
+        <h2 class="auth-title">Acesso de Aventureiro</h2>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="register">Registrar</button>
+            <button class="tab-btn" data-tab="recover">Recuperar Senha</button>
+        </div>
+
+        <div id="login" class="tab-content active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Nome de Usuário</label>
+                    <input type="text" id="loginUsername" placeholder="Seu nome de aventureiro" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Senha Secreta</label>
+                    <input type="password" id="loginPassword" placeholder="Sua senha mágica" required>
+                </div>
+                <button type="submit" class="auth-button">Entrar no Reino</button>
+                <p class="message error" id="loginErrorMessage"></p>
+            </form>
+            <div class="auth-footer">
+                Esqueceu sua <a href="#" onclick="showTab('recover'); return false;">Senha Secreta</a>?
+                <br>
+                Ainda não tem uma conta? <a href="#" onclick="showTab('register'); return false;">Registre-se Agora</a>
+            </div>
+        </div>
+
+        <div id="register" class="tab-content">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">Nome de Usuário</label>
+                    <input type="text" id="registerUsername" placeholder="Crie seu nome de aventureiro" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Nova Senha Secreta</label>
+                    <input type="password" id="registerPassword" placeholder="Crie sua senha mágica" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirme a Senha</label>
+                    <input type="password" id="confirmPassword" placeholder="Repita sua senha" required>
+                </div>
+                <button type="submit" class="auth-button">Criar Conta</button>
+                <p class="message error" id="registerErrorMessage"></p>
+                <p class="message success" id="registerSuccessMessage"></p>
+            </form>
+            <div class="auth-footer">
+                Já tem uma conta? <a href="#" onclick="showTab('login'); return false;">Faça Login</a>
+            </div>
+        </div>
+
+        <div id="recover" class="tab-content">
+            <form id="recoverForm">
+                <div class="form-group">
+                    <label for="recoverEmail">E-mail do Aventureiro</label>
+                    <input type="email" id="recoverEmail" placeholder="Seu e-mail de registro" required>
+                </div>
+                <button type="submit" class="auth-button secondary">Enviar Link de Recuperação</button>
+                <p class="message error" id="recoverErrorMessage"></p>
+                <p class="message success" id="recoverSuccessMessage"></p>
+            </form>
+            <div class="auth-footer">
+                Voltar para <a href="#" onclick="showTab('login'); return false;">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para mostrar/esconder as tabs
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+
+            // Esconder mensagens ao trocar de tab
+            document.querySelectorAll('.message').forEach(msg => msg.classList.remove('show'));
+        }
+
+        // Adiciona event listeners para os botões das tabs
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                showTab(button.dataset.tab);
+            });
+        });
+
+        // Simulação de Banco de Dados com LocalStorage
+        const STORAGE_KEY = 'rpg_users'; // Chave principal para todos os usuários
+
+        function getUsers() {
+            const usersJson = localStorage.getItem(STORAGE_KEY);
+            return usersJson ? JSON.parse(usersJson) : {};
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+        }
+
+        function showMessage(elementId, message, type) {
+            const msgElement = document.getElementById(elementId);
+            msgElement.textContent = message;
+            msgElement.className = `message ${type}`; // Limpa e define a classe
+            msgElement.classList.add('show');
+            setTimeout(() => {
+                msgElement.classList.remove('show');
+            }, 5000); // Esconde a mensagem após 5 segundos
+        }
+
+        // --- Novas funções para gerenciar dados do usuário logado ---
+        function getCurrentUserUsername() {
+            return localStorage.getItem('currentUser'); // Pega o nome do usuário logado
+        }
+
+        function getUserData(username) {
+            const users = getUsers();
+            // Garante que o objeto do usuário e suas sub-chaves existam
+            if (!users[username]) {
+                users[username] = { password: '', magias: [], fichas: [] }; // Inicializa
+                saveUsers(users); // Salva o novo usuário com estrutura básica
+            }
+            // Garante que as sub-chaves existem dentro do objeto do usuário
+            if (!users[username].magias) {
+                users[username].magias = [];
+            }
+            if (!users[username].fichas) {
+                users[username].fichas = [];
+            }
+            return users[username];
+        }
+
+        function saveUserData(username, userData) {
+            let users = getUsers();
+            users[username] = userData;
+            saveUsers(users); // Salva todos os usuários atualizados no localStorage
+        }
+        // --- Fim das novas funções ---
+
+        // Lógica de Login (COM REDIRECIONAMENTO E SALVAMENTO DE currentUser)
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const users = getUsers();
+
+            if (users[username] && users[username].password === password) {
+                // Login bem-sucedido (simulado)
+                // Salvar o usuário logado para referência futura
+                localStorage.setItem('currentUser', username);
+                alert(`Bem-vindo, ${username}! Login bem-sucedido.`);
+
+                // REDIRECIONAR PARA A PÁGINA PRINCIPAL DO SEU SITE
+                window.location.href = 'index.html'; // Altere 'index.html' para o caminho da sua página principal
+                                                    // Exemplo: 'main.html' ou 'https://seusite.com.br/home.html'
+
+                showMessage('loginErrorMessage', '', ''); // Esconde qualquer mensagem de erro anterior
+            } else {
+                showMessage('loginErrorMessage', 'Nome de usuário ou senha incorretos.', 'error');
+            }
+        });
+
+        // Lógica de Registro
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            let users = getUsers();
+
+            if (users[username]) {
+                showMessage('registerErrorMessage', 'Este nome de usuário já está em uso.', 'error');
+                showMessage('registerSuccessMessage', '', '');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('registerErrorMessage', 'A senha deve ter pelo menos 6 caracteres.', 'error');
+                showMessage('registerSuccessMessage', '', '');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('registerErrorMessage', 'As senhas não coincidem.', 'error');
+                showMessage('registerSuccessMessage', '', '');
+                return;
+            }
+
+            // Simula o registro no localStorage, inicializando magias e fichas vazias
+            users[username] = { password: password, magias: [], fichas: [] };
+            saveUsers(users);
+
+            showMessage('registerSuccessMessage', 'Conta criada com sucesso! Faça login.', 'success');
+            showMessage('registerErrorMessage', '', '');
+
+            document.getElementById('registerUsername').value = '';
+            document.getElementById('registerPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+
+            setTimeout(() => showTab('login'), 2000);
+        });
+
+        // Lógica de Recuperação de Senha
+        document.getElementById('recoverForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('recoverEmail').value;
+            const users = getUsers();
+            // Em uma implementação real, você teria um campo de e-mail no registro
+            // para verificar se o e-mail existe aqui. Como não temos, simulamos.
+            const userExists = Object.values(users).some(user => user.email === email); // Isso só funcionaria se o 'email' fosse salvo no registro.
+
+            if (email && email.includes('@')) {
+                showMessage('recoverSuccessMessage', 'Um link de recuperação foi "enviado" para seu e-mail (simulação).', 'success');
+                showMessage('recoverErrorMessage', '', '');
+            } else {
+                showMessage('recoverErrorMessage', 'Por favor, insira um e-mail válido.', 'error');
+                showMessage('recoverSuccessMessage', '', '');
+            }
+            document.getElementById('recoverEmail').value = '';
+        });
+
+        // Mostrar a tab de login por padrão ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('login');
+        });
+
+        // --- Funções de exemplo para Salvar/Carregar Magias e Fichas ---
+        // Estas funções seriam chamadas das suas páginas onde as magias/fichas são criadas/exibidas
+
+        /**
+         * Salva uma magia para o usuário atualmente logado.
+         * @param {object} magicData - O objeto contendo os dados da magia (ex: { nome: "Magia X", tipo: "Fogo", descricao: "..." })
+         */
+        function saveCreatedMagic(magicData) {
+            const currentUsername = getCurrentUserUsername();
+            if (!currentUsername) {
+                alert("Você precisa estar logado para salvar magias!");
+                return;
+            }
+
+            const userData = getUserData(currentUsername);
+            // Verifica se a magia já existe (pelo nome, por exemplo) para não duplicar
+            const existingMagicIndex = userData.magias.findIndex(m => m.nome === magicData.nome);
+            if (existingMagicIndex > -1) {
+                // Se já existe, atualiza
+                userData.magias[existingMagicIndex] = magicData;
+                alert(`Magia '${magicData.nome}' atualizada com sucesso!`);
+            } else {
+                // Se não existe, adiciona
+                userData.magias.push(magicData);
+                alert(`Magia '${magicData.nome}' salva com sucesso para o seu perfil!`);
+            }
+            saveUserData(currentUsername, userData);
+        }
+
+        /**
+         * Carrega as magias do usuário atualmente logado.
+         * @returns {Array} Um array de objetos de magia.
+         */
+        function loadUserMagics() {
+            const currentUsername = getCurrentUserUsername();
+            if (!currentUsername) {
+                console.warn("Nenhum usuário logado. Não é possível carregar magias.");
+                return [];
+            }
+            const userData = getUserData(currentUsername);
+            return userData.magias || [];
+        }
+
+        /**
+         * Salva uma ficha de personagem para o usuário atualmente logado.
+         * @param {object} sheetData - O objeto contendo os dados da ficha (ex: { nome: "Personagem X", classe: "Guerreiro", atributos: {...} })
+         */
+        function saveCharacterSheet(sheetData) {
+            const currentUsername = getCurrentUserUsername();
+            if (!currentUsername) {
+                alert("Você precisa estar logado para salvar a ficha!");
+                return;
+            }
+
+            const userData = getUserData(currentUsername);
+            // Similar à magia, verifica se a ficha já existe (pelo nome)
+            const existingSheetIndex = userData.fichas.findIndex(f => f.nome === sheetData.nome);
+            if (existingSheetIndex > -1) {
+                userData.fichas[existingSheetIndex] = sheetData;
+                alert(`Ficha '${sheetData.nome}' atualizada com sucesso!`);
+            } else {
+                userData.fichas.push(sheetData);
+                alert(`Ficha '${sheetData.nome}' salva com sucesso para o seu perfil!`);
+            }
+            saveUserData(currentUsername, userData);
+        }
+
+        /**
+         * Carrega as fichas de personagem do usuário atualmente logado.
+         * @returns {Array} Um array de objetos de ficha.
+         */
+        function loadUserCharacterSheets() {
+            const currentUsername = getCurrentUserUsername();
+            if (!currentUsername) {
+                console.warn("Nenhum usuário logado. Não é possível carregar fichas.");
+                return [];
+            }
+            const userData = getUserData(currentUsername);
+            return userData.fichas || [];
+        }
+
+        // --- Funções para Download de PDF (Exemplos) ---
+        // Estas funções DEVEM ser chamadas do HTML ou JS da sua página de criação/visualização
+        // onde as magias/fichas são exibidas. Os IDs 'magiaPreviewCard' e 'fichaPersonagem'
+        // devem existir no HTML da sua página.
+
+        function downloadMagiaPdf() {
+            const element = document.getElementById('magiaPreviewCard'); // ID da div da sua magia
+            if (element) {
+                html2pdf(element, {
+                    margin: 10,
+                    filename: 'magia_' + (document.getElementById('previewMagiaNome') ? document.getElementById('previewMagiaNome').textContent.replace(/ /g, '_') : 'sem_nome') + '.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                });
+            } else {
+                alert("Não foi possível encontrar a prévia da magia para download. Certifique-se de que a div com id 'magiaPreviewCard' existe.");
+            }
+        }
+
+        function downloadFichaPdf() {
+            const element = document.getElementById('fichaPersonagem'); // ID da div da sua ficha
+            if (element) {
+                html2pdf(element, {
+                    margin: 10,
+                    filename: 'ficha_' + (document.getElementById('fichaNomePersonagem') ? document.getElementById('fichaNomePersonagem').value.replace(/ /g, '_') : 'personagem_sem_nome') + '.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                });
+            } else {
+                alert("Não foi possível encontrar a ficha do personagem para download. Certifique-se de que a div com id 'fichaPersonagem' existe.");
+            }
+        }
+
+    </script>
+</body>
+</html>
