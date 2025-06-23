@@ -8,7 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Variáveis CSS para cores e propriedades globais */
+    
+    
+a {
+    color: #007de4; /* Um azul padrão de link, você pode escolher qualquer cor */
+}
+
+/* Opcional: para links visitados, ativos e ao passar o mouse */
+a:visited {
+    color: #24baff; /* Uma cor ligeiramente diferente para links visitados */
+}
+
+a:hover {
+    color: #0adaff; /* Cor ao passar o mouse para indicar interatividade */
+    text-decoration: underline; /* Adiciona um sublinhado ao passar o mouse */
+}
+
+a:active {
+    color: #00e1ff; /* Cor quando o link está sendo clicado */
+}
+       
+       
+       
+       
+       
+       
+       /* Variáveis CSS para cores e propriedades globais */
         :root {
             --primary-color: #412d8d; /* Roxo escuro */
             --secondary-color: #000000; /* Azul/Roxo muito escuro */
@@ -1699,11 +1724,11 @@
                                 <p class="text-xs text-gray-400 mt-1">Personalize para imersão extra. </p>
                             </div>
 
-                            <div class="form-group">
-                                <label for="magic-visual-icon">Ícone Visual (Font Awesome):</label>
-                                <input type="text" id="magic-visual-icon" placeholder="Ex: fas fa-fire" value="fas fa-hat-wizard" required>
-                                <p class="text-xs text-gray-400 mt-1">Use classes de ícones Font Awesome (ex: fas fa-fire, fas fa-shield-alt).</p>
-                            </div>
+                        <div class="form-group">
+    <label for="magic-visual-icon">Ícone Visual (Font Awesome):</label>
+    <input type="text" id="magic-visual-icon" placeholder="Ex: fas fa-fire" value="fas fa-hat-wizard" required>
+    <p class="text-xs text-gray-400 mt-1">Use classes de ícones <a href="https://fontawesome.com/search" target="_blank" rel="noopener noreferrer">Font Awesome</a> (ex: fas fa-fire, fas fa-shield-alt).</p>
+</div>
 
                             <div class="wizard-buttons">
                                 <button class="btn btn-secondary" onclick="prevStep()">Anterior</button>
